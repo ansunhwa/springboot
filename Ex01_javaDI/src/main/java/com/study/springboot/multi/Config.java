@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class Config {
+	//@bean 객체로 만듬
+	
 	@Bean
 	public Person Person1() {
 		Person Person1 = new Person();

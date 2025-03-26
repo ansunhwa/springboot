@@ -29,7 +29,7 @@ public class Ex01JavaDiApplication {
 		p1.setPrinter(printer);
 		p1.printer();
 		
-		if(p1 == p2) {
+		if(p1 == p2) {  //주소가 같은가
 			System.out.println("동일한객체");
 		} else {
 			System.out.println("서로다른객체");

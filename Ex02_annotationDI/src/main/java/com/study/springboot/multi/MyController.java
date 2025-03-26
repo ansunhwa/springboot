@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class MyController {
 	/*
-	@RequestMapping("/")  //get, post의 method를 모두 받음 /루트
-	public @ResponseBody String root() {  //@ResponseBody : html이 아닌 일반 문자를 반환할 때
+	@RequestMapping("/")  //get, post의 method를 모두 받음 /루트  ex)GetMapping, PostMapping
+	public @ResponseBody String root() {  //@ResponseBody : html이 아닌 일반 문자를 반환할 때  - 되돌려줄때 어떤 형식으로 되돌려 줄껀지
 		return "Annotation 사용하기";  
 	}
 	*/
