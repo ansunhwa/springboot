@@ -41,6 +41,7 @@ public class BoardController {
 	public String listPage(Model model) {
 		List<Board> list = boardService.list();
 		int record = boardService.totalRecord();
+		
 		model.addAttribute("list", list);                  //add한 값을 가지고 list로 간다
 		model.addAttribute("totalRecord", record);
 		return "list";
@@ -87,7 +88,7 @@ public class BoardController {
 	   	  public String detailView(@ModelAttribute("form") Board b) {
 	   	  	String title = b.getTitle();
 	   	  	b.setWriter = "김땡땡";
-	   	  		form에  값 넣어줄때 bean에 getset있어야함
+	   	  		form에  값 넣어줄때 <input name="title">, <input name="writer">
 	   	  }
 	   
 	   5. 커맨드 객체 방식
@@ -121,11 +122,15 @@ public class BoardController {
 	
 	@PostMapping("/write")
 	public String write(Board b) {
-		System.out.println("title: " + b.getTitle());
-		System.out.println("writer: " + b.getWriter());
-		System.out.println("content: " + b.getContent());
-		
+		boardService.insertBoard(b);
 		return "redirect:list";
+	}
+	
+	@GetMapping("/delete")
+	public String delete(HttpServletRequest request, Model model) {
+		String bno = request.getParameter("boardno");
+		boardService.deleteBoard(bno);
+		return " redirect:list";
 	}
 	
 	

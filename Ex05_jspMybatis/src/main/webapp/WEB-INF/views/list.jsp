@@ -33,7 +33,7 @@
 				<td>${b.boardno }</td>
 				<td><a href="detail?boardno=${b.boardno}">${b.title}</a></td>
 				<td>${b.writer }</td>
-				<td><button type="button" class="btn btn-outline-danger"> 삭제</button></td>
+				<td><button type="button" class="btn btn-outline-danger" onclick="location.href='delete?boardno=${b.boardno}'"> 삭제</button></td>
 			</tr>
 		</c:forEach>
 	</table>

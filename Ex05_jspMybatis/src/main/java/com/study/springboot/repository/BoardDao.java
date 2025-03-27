@@ -13,7 +13,7 @@ import com.study.springboot.domain.Board;
 @Mapper    
 public interface BoardDao {
 		
-	public List<Board> list();        //list목록 가지고 오기	
+	public List<Board> list();        //list목록 가지고 오기	sql쿼리와 매핑(XML)
 	public int totalRecord();
 	
 	public Board detailBoard(String boardno);

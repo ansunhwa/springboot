@@ -13,10 +13,11 @@ public class BoardServiceImpl implements BoardService {
 
 	@Autowired
 	BoardDao boardDao;
+	// BoardDao boardDao = new BoardDao();
 	
 	@Override
 	public List<Board> list() {	
-		return boardDao.list();
+		return boardDao.list();  //boardDao를 호출, 여기서도 list를 만드세요 라고 되어있음
 	}
 
 	@Override
@@ -32,13 +33,12 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int insertBoard(Board b) {
 		
-		return 0;
+		return  boardDao.insertBoard(b);
 	}
 
 	@Override
-	public int deleteBoard(String boardno) {
-		
-		return 0;
+	public int deleteBoard(String boardno) {	
+		return  boardDao.deleteBoard(boardno);
 	}
 
 	
