@@ -31,15 +31,21 @@ public class MemberService {
 		return memberRepository.findAll();   //싹 다 찾아주세요
 	}
 
-	public List<Member> delete(Long id) {
+	public void delete(Long id) {
+		memberRepository.deleteById(id);
 		
-		return memberRepository.deleteById(id);
 	}
 
-	
-	
-	
-	//deleteById(id)
+	/*
+	 * public Member update(Long id, String username) { // TODO Auto-generated
+	 * method stub return null; }
+	 */
+
+	public Member update(Member member) {
+		   //아이디가 있으면 suername, creatDate가 수정이 된다
+		return memberRepository.save(member);
+	}
+
 	
 	//save(member)
 

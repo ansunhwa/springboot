@@ -71,10 +71,33 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/delete")
-	public String delete(Long id, Model model) {
-		List<Member> m = memberService.delete(id);
-		model.addAttribute("result", m);
-		return "redirect:/menu";
+	public String delete(@RequestParam("id") Long id) {
+		memberService.delete(id);	
+		return "menu";
+	}
+	
+	
+	/*
+	 * @RequestMapping("/update") 
+	 * public Member update(@RequestParam("id") Long id,
+	 * 						@RequestParam("username") String username,
+	 * 						Model model) { 
+	 * Member upeate =
+	 * memberService.update(id, username);
+	 * 
+	 * }
+	 */
+	
+	@RequestMapping("/update")
+	public String update(Member member, Model model) {
+		// update시 primary key를 검색하여 키가 있으면 다른 필드 모두 업데이트
+		// update시 기존내용을 업데이트 하지 않는다고 안넣으면 null이 들어감
+		// => select를 하여 그 결과에 update할 내용만 넣으면 됨
+		member.setCreateDate(LocalDate.now());
+		Member result = memberService.update(member);
+		model.addAttribute("member", result);
+		return "update";
+						
 	}
 	
 	/*
