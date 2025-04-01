@@ -62,7 +62,7 @@ public class MemberController {
 		PageRequest.ofSize(10)
 				 .withPage(nPage)
 				 .withSort(null);
-		of
+		or
 		/페이징처리 기본
 		Pageable pageable = PageRequest.of(nPage, 10);   // npage, 한페이지당 몇개씩 
 		*/

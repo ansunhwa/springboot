@@ -1,0 +1,20 @@
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.nav-area {
+    width: 100%;
+    background-color: lightblue;
+    text-align: center;
+    height: 40px;
+}
+
+.nav-area td {
+	width: 25%;
+}
+
+.nav-area td:hover {
+	cursor: pointer;
+    background-color: rgb(95, 142, 172);
+}
