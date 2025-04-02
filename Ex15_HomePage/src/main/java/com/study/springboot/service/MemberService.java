@@ -1,5 +1,7 @@
 package com.study.springboot.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +15,24 @@ public class MemberService {
 	MemberRepository memberRepository;
 
 	public boolean idCheck(String id) {
-		return memberRepository.existsById(id);
+		return memberRepository.existsById(id);  //existsById -> 있는지true 없는지false 
 	}
 
 	public Member insert(Member member) {
 		return memberRepository.save(member);
 	}
+
+	public Member login(Member member) {
+		Optional<Member> loginUser = memberRepository.findById(member.getId());
+		if(loginUser.isPresent()) {
+			return loginUser.get();
+		}else {
+			return null;
+		}
+		 
+	}
+
+	
 	
 	
 

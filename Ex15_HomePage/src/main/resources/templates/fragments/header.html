@@ -3,6 +3,7 @@
 <head>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
+<link href="/css/index.css" rel="stylesheet">     <!--static이 기본-->
 </head>
 <body>
 	<div th:fragment="fragment-menu">  <!--fragment : 재사용이 가능하다/ 자주사용하는 코드-->
@@ -35,8 +36,6 @@
 			<table>
 				<tr>
 					<td colspan="2">
-						<!-- <h4 th:test="${loginUser.name}"></h4> -->
-						<!-- [[문자로 인식]] -->
 						 <h4>[[${loginUser.name}]] 님 환영합니다.</h4>
 					</td>
 				</tr>
@@ -52,7 +51,7 @@
 			<tr>
 				<td onclick="location.href='index'">HOME</td>
 				<td>공지사항</td>
-				<td>게시판</td>
+				<td onclick="location.href='list'">게시판</td>
 				<td>찾아오는 길</td>
 			</tr>
 		</table>
