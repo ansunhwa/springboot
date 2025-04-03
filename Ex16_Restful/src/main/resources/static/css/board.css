@@ -1,0 +1,15 @@
+@charset "UTF-8";
+.outer {
+	width: 700px;
+    margin: 0 auto;
+}
+
+td a {
+	text-decoration: none;
+	color: black;
+}
+
+#diva a {
+	text-decoration: none;
+	color: darkmagenta;
+}
