@@ -282,11 +282,55 @@
 					})
 					
 				</script>
-		
-			
-			
-			
-			
+				<hr>
+				
+				<!--DELETE  /menu  : 메뉴 1건만 삭제 -->
+				<div class="menu-test">
+					<h3>메뉴 삭제 (delete)</h3>
+					<p>메뉴 번호로 삭제</p>
+					<form namd="menuDeleteFrm" id="menuDeleteFrm">
+						메뉴번호 : <input name="id"> <br><br>
+						<button class="btn"> 삭제 </button>
+					</form>
+				</div>
+				
+				<script>
+					$(() => {
+						$('#menuDeleteFrm').on('submit', e => {
+							e.preventDefault();
+							const id = e.target.id.value;
+							$.ajax({
+								url : `/menu/${id}`,
+							method : 'GET',
+							success(result) {
+								deleteMenu(id);	
+							},
+							error(jqXHR) {
+								if(jqXHR.status == 404) {
+									alert("조회한 메뉴는 존재하지 않습니다");
+								}
+							}
+								
+							})
+						})
+						
+						const deleteMenu = (id) => {
+							$.ajax({
+								url : `/menu/${id}`,
+								method : 'DELETE',
+								success(result, textStatus, jqXHR) {
+									console.log(result);
+									if(jqXHR.status == 204) {
+										alert("삭제되었습니다");
+									}
+								},
+								error : console.log
+							})
+						}
+					})
+					
+				</script>
+																			
 			<script>
 				
 					const findById = id => {
@@ -315,6 +359,7 @@
 						}
 					});
 				}
+				
 				
 				<!--메뉴보여질폼-->
 				const menuTable = function(selector, data) {

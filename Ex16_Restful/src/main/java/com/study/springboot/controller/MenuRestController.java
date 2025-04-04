@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,6 +60,35 @@ public class MenuRestController {
 	}
 	*/
 	
+	/*
+	 * // 없는 id를 넣어서 오류가 났을 때 500(서버측오류) 가 뜸
+		// 사용자의 잘못인 것(400번대 오류가 나야함)
+		 * 
+	 * ResponseEntity : 결과 데이터와 HTTP상태코드와 오류코드까지 직접 제어할 수 있는 클래스
+	  					(HttpRequest에 대한 응답 데이터가 포함되어 있음)
+	    - status : 응답에 대한 status코드
+	    - header : header값 (요청/대응)에 대한 요구사항
+	    - body : 메세지 body에 작성될 내용(요구사항의 내용)
+	  
+	 * ResponseEntity 사용법
+	    - status와 body를 이용
+	      ResponseEntity.status(상태코드).body(객체)
+	      
+	      + 상태코드는 HttpStatus에 정의된 값 이용
+	      
+	      + 상태코드 OK 와 body를 한번에 사용
+	      	 ResponseEntity.ok.body(menu)
+	      
+	      + body가 없을 때, build() 사용
+	      	 ResponseEntity.status(HttpStatus.Not_FOUND).build()
+	      
+	      + body가 없고 status 대신 사용하는 메서드
+	       noContent() : 204
+	       badRequest() : 400
+	       notFound()   : 404      
+	 *     
+	 */
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<Menu> findById(@PathVariable(name="id") Long id) {
 		Optional<Menu> menu = menuService.findById(id);
@@ -83,33 +113,14 @@ public class MenuRestController {
 		return ResponseEntity.ok(reMenu);
 	}
 	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteMenu(@PathVariable(name="id") Long id)  {
+		menuService.deleteMenu(id);   
+		return ResponseEntity.noContent().build();   // http 상태코드 : noContent() : 204
+	}
 	
 	
-	/*
-	 * // 없는 id를 넣어서 오류가 났을 때 500(서버측오류) 가 뜸
-		// 사용자의 잘못인 것(400번대 오류가 나야함)
-		 * 
-	 * ResponseEntity : 결과 데이터와 HTTP상태코드와 오류코드까지 직접 제어할 수 있는 클래스
-	 * 					(HttpRequest에 대한 응답 데이터가 포함되어 있음)
-	 *   - status : 응답에 대한 status코드
-	 *   - header : header값 (요청/대응)에 대한 요구사항
-	 *   - body : 메세지 body에 작성될 내용(요구사항의 내용)
-	 * 
-	 * ResponseEntity 사용법
-	 *   - status와 body를 이용
-	 *     ResponseEntity.status(상태코드).body(객체)
-	 *     
-	 *     + 상태코드는 HttpStatus에 정의된 값 이용
-	 *     
-	 *     + 상태코드 OK 와 body를 한번에 사용
-	 *     	 ResponseEntity.ok.body(menu)
-	 *     
-	 *     + body가 없을 때, build() 사용
-	 *     	 ResponseEntity.status(HttpStatus.Not_FOUND).build()
-	 *     
-	 *     + notFound() : 404
-	 *     
-	 */
+
 	
 
 }

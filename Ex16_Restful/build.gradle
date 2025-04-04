@@ -45,6 +45,9 @@ dependencies {
     //비밀번호 암호화
     implementation 'org.springframework.security:spring-security-crypto:6.4.3'
     
+    // Restrul api의 post test 사용 시  http 헤더에 데이터 담기
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.6'
+    
 
 }
 

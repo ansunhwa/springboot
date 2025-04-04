@@ -37,6 +37,11 @@ public class MenuService {
 	public Menu insertMenu(Menu menu) {
 		return menuRepository.save(menu);
 	}
+
+	public void deleteMenu(Long id) {
+		menuRepository.deleteById(id);
+		//삭제여서 return없음 ' 삭제 하세요' 만
+	}
 	
 
 	
