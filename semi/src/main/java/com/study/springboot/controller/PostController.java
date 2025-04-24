@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.study.springboot.dto.CommentDTO;
 import com.study.springboot.dto.PostDTO;
+import com.study.springboot.entity.Comment;
 import com.study.springboot.entity.Post;
 import com.study.springboot.entity.User;
 import com.study.springboot.repository.PostRepository;
 import com.study.springboot.repository.UserRepository;
+import com.study.springboot.service.CommentService;
 
 @RestController
 @RequestMapping("/posts")
@@ -30,6 +33,9 @@ public class PostController {
 
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private CommentService commentService;
 
     // 게시글 작성 (POST 메서드)
     @PostMapping
@@ -55,7 +61,7 @@ public class PostController {
     @GetMapping
     public ResponseEntity<List<PostDTO>> getPosts() {
         try {
-            List<Post> posts = postRepository.findAll();
+            List<Post> posts = postRepository.findAllByOrderByIdDesc();
             if (posts.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 204 상태 코드
             }
@@ -84,4 +90,58 @@ public class PostController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND); // 404 상태 코드
         }
     }
+    
+    //댓글달기
+    @PostMapping("/{postId}/comments")
+    public ResponseEntity<?> createComment(
+    		  @PathVariable("postId") Long postId,
+              @RequestBody CommentDTO commentDTO) {
+          try {
+              commentService.saveComment(postId, commentDTO);
+              return new ResponseEntity<>(HttpStatus.CREATED);
+          } catch (Exception e) {
+              e.printStackTrace();
+              return new ResponseEntity<>("댓글 등록 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+          }
+      }
+    
+    
+    //댓글목록조회
+    @GetMapping("/{postId}/comments")
+    public ResponseEntity<List<Comment>> getCommentsByPostId(
+            @PathVariable("postId") Long postId) {  
+        List<Comment> comments = commentService.getCommentsByPostId(postId);
+        return new ResponseEntity<>(comments, HttpStatus.OK);
+    }
+    
+    
+    // 본인 댓글 삭제
+    @PostMapping("/{postId}/comments/{commentId}/delete")
+    public ResponseEntity<?> deleteComment(
+    	    @PathVariable("postId") Long postId,  // 이렇게 이름 명시
+    	    @PathVariable("commentId") Long commentId,
+    	    @RequestBody CommentDTO dto) {
+    	    try {
+    	    	System.out.println("댓글 삭제 요청 도착 - postId: " + postId + ", commentId: " + commentId + ", 요청자: " + dto.getUserId());
+    	        commentService.deleteComment(commentId, dto.getUserId());
+    	        return ResponseEntity.ok().build();
+    	    } catch (RuntimeException e) {
+    	        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("삭제 권한 없음");
+    	    }
+    	}
+    
+    
+    
+    
 }
+
+
+
+
+
+
+
+
+
+
+
