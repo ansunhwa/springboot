@@ -20,7 +20,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "COMMENTS")
 @Getter
 @Setter
@@ -34,12 +33,10 @@ public class Comment {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "POST_ID")
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User user;
 
     @Lob  // CLOB 매핑 시 꼭 사용

@@ -1,26 +1,21 @@
+// User 엔티티
 package com.study.springboot.entity;
 
-import java.time.LocalDate;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDate;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "USERS") // 테이블 이름 명시
+@Table(name = "USERS")
 public class User {
-
     @Id
-    @Column(name = "USER_ID") // USER_ID 컬럼 명시
+    @Column(name = "USER_ID")
     private String userId;
 
     @Column(name = "PASSWORD_HASH", nullable = false)
@@ -53,6 +48,5 @@ public class User {
     @Column(name = "PROFILE_IMAGE_URL")
     private String profileImageUrl;
 
-    @Column(name = "CALORIES_BURNED") // ✅ 추가된 부분
-    private Integer caloriesBurned;
+  
 }
